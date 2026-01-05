@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Besties Magic Page ✨💖</title>
+  <style>
+
+    /* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+    /* ---------- RESET ---------- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    :root{
+      --pink:#ff80b5; --hot:#ff3d6e; --vio:#8e7dff; --sky:#7dd3fc; --dark:#0a0a12; --card:#121225aa; --white:#fff;
+    }
+
+    /* ---------- GALAXY BACKGROUND ---------- */
+    body {
+      background: radial-gradient(1200px 800px at 20% 10%, #2c1d52 0, #090a17 60%, #05060d 100%);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    .stars { position: fixed; inset: 0; z-index: -2; background: transparent; }
+    .stars::before, .stars::after{
+      content:""; position:absolute; inset:-50% -50%; background: radial-gradient(2px 2px at 20% 30%,#fff8 98%,#0000 100%),
+        radial-gradient(1.5px 1.5px at 70% 80%,#fff7 98%,#0000 100%),
+        radial-gradient(1.2px 1.2px at 40% 60%,#fff5 98%,#0000 100%),
+        radial-gradient(1px 1px at 90% 20%,#fff6 98%,#0000 100%),
+        radial-gradient(1.6px 1.6px at 10% 80%,#fff6 98%,#0000 100%);
+      animation: drift 120s linear infinite;
+      filter: blur(0.3px);
+    }
+    .stars::after{ animation-duration: 180s; opacity: .7; }
+    @keyframes drift{ to { transform: translate3d(20%, 20%, 0); } }
+
+    /* ---------- HEADER ---------- */
+    header { text-align:center; padding: 32px 16px 12px; }
+    .title { font-size: clamp(28px, 6vw, 56px); margin-top: 40px; font-weight: 800; letter-spacing: 1px; }
+    .subtitle { opacity:.9; margin-top:8px; font-size: clamp(14px, 2.3vw, 18px); }
+
+    /* ---------- HEART ORBIT SCENE ---------- */
+    .scene { position: relative; width:min(1100px, 92vw); margin: 24px auto; aspect-ratio: 16/9; border-radius: 24px; 
+      background: linear-gradient(180deg, #12122a99, #0a0a16aa); box-shadow: 0 20px 60px #0008, inset 0 0 0 1px #ffffff10; overflow:hidden; }
+
+    /* twinkly fog */
+    .nebula { position:absolute; inset:-30% -10%; background: radial-gradient(60% 40% at 20% 30%, #ff80b522, #0000 60%),
+      radial-gradient(50% 30% at 80% 40%, #7dd3fc22, #0000 60%),
+      radial-gradient(70% 50% at 50% 70%, #8e7dff22, #0000 60%);
+      filter: blur(18px); animation: breathe 10s ease-in-out infinite; }
+    @keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+    /* heart path made with CSS mask */
+    .heart-orbit{ position:absolute; inset:0; display:grid; place-items:center; }
+    .heart { position:relative; width:min(60vmin, 520px); height:min(60vmin, 520px); }
+    .heart::before { content:""; position:absolute; inset:0; background: conic-gradient(from 0deg, var(--pink), var(--vio), var(--sky), var(--hot), var(--pink));
+      -webkit-mask: radial-gradient(circle at 35% 35%, #0000 29%, #000 30% 52%, #0000 53%) top left,
+                    radial-gradient(circle at 65% 35%, #0000 29%, #000 30% 52%, #0000 53%) top right,
+                    linear-gradient(#000 0 0) bottom/100% 60%;
+      -webkit-mask-size: 50% 60%, 50% 60%, 100% 80%;
+      -webkit-mask-repeat: no-repeat;
+      filter: blur(8px) brightness(1.2); opacity:.65; }
+
+    /* orbiting sparkles along the heart path */
+    .spark { position:absolute; width:10px; height:10px; border-radius:50%; background:#fff; box-shadow:0 0 12px 6px #fff5; animation: orbit 6s linear infinite; }
+    .spark:nth-child(1){ animation-delay: -0.0s }
+    .spark:nth-child(2){ animation-delay: -0.6s }
+    .spark:nth-child(3){ animation-delay: -1.2s }
+    .spark:nth-child(4){ animation-delay: -1.8s }
+    .spark:nth-child(5){ animation-delay: -2.4s }
+    .spark:nth-child(6){ animation-delay: -3.0s }
+    .spark:nth-child(7){ animation-delay: -3.6s }
+    .spark:nth-child(8){ animation-delay: -4.2s }
+    .spark:nth-child(9){ animation-delay: -4.8s }
+    .spark:nth-child(10){ animation-delay: -5.4s }
+
+    /* math path approximated via keyframes */
+    @keyframes orbit {
+      0%   { transform: translate(0, 40%) }
+      10%  { transform: translate(-22%, 22%) }
+      20%  { transform: translate(-32%, -2%) }
+      30%  { transform: translate(-26%, -26%) }
+      40%  { transform: translate(-8%, -40%) }
+      50%  { transform: translate(0, -36%) }
+      60%  { transform: translate(8%, -40%) }
+      70%  { transform: translate(26%, -26%) }
+      80%  { transform: translate(32%, -2%) }
+      90%  { transform: translate(22%, 22%) }
+      100% { transform: translate(0, 40%) }
+    }
+
+    /* photo polaroids inside heart */
+    .polaroids { position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; }
+    .stack { display:flex; gap:18px; transform: translateY(6%); }
+    .polaroid { width:160px; aspect-ratio:3/4; background:#fff; color:#111; border-radius:10px; box-shadow: 0 10px 30px #0008; transform: rotate(-6deg); }
+    .polaroid:nth-child(2){ transform: rotate(6deg); }
+    .polaroid img { width:100%; height:82%; object-fit:cover; border-radius: 8px 8px 0 0; display:block; }
+    .polaroid .cap { padding:8px 10px 12px; text-align:center; font-weight:700; }
+
+    .controls { position:absolute; right:16px; bottom:16px; display:flex; gap:10px; flex-wrap:wrap; }
+    button, .ghost { background: linear-gradient(180deg, #ffffff33, #ffffff10); color:#fff; border:1px solid #ffffff30; padding:10px 14px; border-radius:999px; font-weight:700; cursor:pointer; backdrop-filter: blur(6px); box-shadow: 0 6px 20px #0006; }
+    button:hover { transform: translateY(-1px); }
+
+    .badge { position:absolute; top:12px; left:12px; background:linear-gradient(45deg, var(--pink), var(--vio)); padding:8px 12px; border-radius:999px; font-size:12px; font-weight:800; box-shadow: 0 8px 24px #0008; }
+
+    /* ---------- FLOATING EMOJI LAYER ---------- */
+    .floaters { pointer-events:none; position: fixed; inset: 0; overflow:hidden; }
+    .floater { position:absolute; font-size: clamp(18px, 3vw, 28px); animation: rise 12s linear infinite; opacity:.8; filter: drop-shadow(0 2px 6px #000a); }
+    @keyframes rise { from { transform: translateY(110vh) translateX(var(--x)) rotate(0deg);} to { transform: translateY(-10vh) translateX(calc(var(--x) + 10px)) rotate(360deg);} }
+
+    /* ---------- TYPEWRITER ---------- */
+    .typewrap { text-align:center; font-size: clamp(16px, 2.8vw, 22px); margin: 10px auto 0; opacity:.95; min-height: 28px; }
+    .cursor { display:inline-block; width:1ch; animation: blink 1s steps(1,end) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ---------- SECTIONS ---------- */
+    .container { width:min(1100px, 92vw); margin: 24px auto 80px; }
+    .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; }
+    .card { background: var(--card); border:1px solid #ffffff1a; border-radius: 20px; padding: 18px; box-shadow: 0 10px 30px #0007; }
+    .card h3 { margin: 6px 0 10px; }
+    .memory { perspective: 1000px; }
+    .flip { position:relative; transform-style: preserve-3d; transition: transform .8s; cursor:pointer; }
+    .flip:hover { transform: rotateY(180deg); }
+    .front, .back { position:absolute; inset:0; border-radius: 14px; padding: 14px; background:#0f1122cc; border:1px solid #ffffff1a; backface-visibility:hidden; }
+    .back { transform: rotateY(180deg); }
+
+    /* ---------- FOOTER AUDIO ---------- */
+    footer { position:fixed; left:50%; bottom:16px; transform: translateX(-50%); display:flex; gap:8px; align-items:center; background:#0e0f1ecc; padding:6px 12px; border-radius:999px; border:1px solid #ffffff22; box-shadow: 0 8px 24px #0009; }
+
+    /* ---------- HEART TRAIL CURSOR ---------- */
+    .trail-heart{ position: fixed; font-size:18px; pointer-events:none; animation: pop .9s ease forwards; }
+    @keyframes pop { 0%{ transform: translate(-50%, -50%) scale(.6); opacity:1 } 100%{ transform: translate(-50%, -120%) scale(1.6); opacity:0 } }
+
+    /* ---------- MEDIA ---------- */
+    @media (max-width:540px){ .stack{ transform: translateY(0) scale(.9);} .polaroid{ width:140px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html">Best Vedio</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <div class="stars"></div>
+
+  <header>
+    <div class="title">Besties Forever 🫶✨</div>
+    <div class="subtitle">A tiny galaxy where two hearts laugh a little louder together.</div>
+    <div class="typewrap"><span id="typer"></span><span class="cursor">|</span></div>
+  </header>
+
+  <section class="scene" id="scene">
+    <div class="nebula"></div>
+    <div class="badge">Tap the buttons ➜</div>
+
+    <div class="heart-orbit">
+      <div class="heart" aria-hidden="true">
+        <!-- orbiting sparkles -->
+        <div class="spark"></div><div class="spark"></div><div class="spark"></div><div class="spark"></div><div class="spark"></div>
+        <div class="spark"></div><div class="spark"></div><div class="spark"></div><div class="spark"></div><div class="spark"></div>
+      </div>
+
+      <!-- Polaroid photo stack -->
+      <div class="polaroids">
+        <div class="stack">
+          <figure class="polaroid">
+            <img id="img1" src="images/k and me.jpeg" alt="Bestie 1" />
+            <figcaption class="cap" contenteditable>Bestie One</figcaption>
+          </figure>
+          <figure class="polaroid">
+            <img id="img2" src="images/khushi and me.jpeg" alt="Bestie 2" />
+            <figcaption class="cap" contenteditable>Bestie Two</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="ghost">Upload 1 <input id="file1" type="file" accept="image/*" hidden></label>
+      <label class="ghost">Upload 2 <input id="file2" type="file" accept="image/*" hidden></label>
+      <button id="confettiBtn">Open Surprise 🎁</button>
+      <button id="sparkBtn">Star Shower ✨</button>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="cards">
+      <div class="card memory">
+        <h3>Flip for a Memory 📸</h3>
+        <div class="flip">
+          <div class="front">Our first inside joke lives here. Hover / tap me!</div>
+          <div class="back">Remember when we laughed for 10 minutes and forgot why? That was pure chaos energy 💥🤣</div>
+        </div>
+      </div>
+      <div class="card memory">
+        <h3>Flip for a Promise 🤝</h3>
+        <div class="flip">
+          <div class="front">Bestie promise...</div>
+          <div class="back">No matter how busy life gets, we’ll still send memes at 2 AM. Deal?</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Jar of Hearts 💌</h3>
+        <p>Click to release 20 tiny hearts into the galaxy.</p>
+        <button id="jarBtn">Release Hearts</button>
+      </div>
+      <div class="card">
+        <h3>Secret Note 🔐</h3>
+        <p>Write a hidden message (it stays in this browser).</p>
+        <input id="note" placeholder="Type something sweet…" style="width:100%; padding:10px; border-radius:10px; border:1px solid #ffffff33; background:#0d0f20; color:#fff;" />
+        <button id="saveNote" style="margin-top:10px;">Save Note</button>
+        <div id="noteShow" style="margin-top:10px; opacity:.9;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating emoji layer -->
+  <div class="floaters" id="floaters" aria-hidden="true"></div>
+
+  <!-- Music controls (replace song.mp3 with your file) -->
+  <footer>
+    <button id="play">Play Music ▶️</button>
+    <button id="pause">Pause ⏸️</button>
+    <audio id="audio" src="images/yaara teri yari ko .mp4"></audio>
+  </footer>
+
+  <script>
+    // ---------- TYPEWRITER LINES ----------
+    const lines = [
+      'Two idiots, one brain cell. ✔️',
+      'Inside jokes nobody understands 🤫',
+      'Best friends? No. Soul twins ✨',
+      'Photos + chai = therapy ☕'
+    ];
+    let li = 0, ci = 0, del = false;
+    const typer = document.getElementById('typer');
+    function typeLoop(){
+      const word = lines[li];
+      if(!del){ ci++; if(ci > word.length){ del = true; setTimeout(typeLoop, 1200); return; } }
+      else { ci--; if(ci === 0){ del = false; li = (li+1)%lines.length; } }
+      typer.textContent = word.slice(0, ci);
+      setTimeout(typeLoop, del ? 40 : 70);
+    }
+    typeLoop();
+
+    // ---------- UPLOAD PHOTOS ----------
+    function bindUpload(inputId, imgId){
+      const input = document.getElementById(inputId);
+      const img = document.getElementById(imgId);
+      input.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => img.src = reader.result;
+        reader.readAsDataURL(file);
+      });
+    }
+    bindUpload('file1', 'img1');
+    bindUpload('file2', 'img2');
+
+    // ---------- FLOATING EMOJIS ----------
+    const floaters = document.getElementById('floaters');
+    const emojiSet = ['✨','💖','⭐','🌙','🫶','🌸','💫'];
+    function dropEmoji(){
+      const e = document.createElement('div');
+      e.className = 'floater';
+      e.textContent = emojiSet[Math.floor(Math.random()*emojiSet.length)];
+      e.style.left = Math.random()*100 + 'vw';
+      e.style.setProperty('--x', (Math.random()*60-30) + 'px');
+      e.style.animationDuration = (8 + Math.random()*8) + 's';
+      floaters.appendChild(e);
+      setTimeout(()=> e.remove(), 17000);
+    }
+    for(let i=0;i<24;i++) setTimeout(dropEmoji, i*600);
+
+    // ---------- CONFETTI / SURPRISE ----------
+    function burst(x, y){
+      for(let i=0;i<28;i++){
+        const s = document.createElement('div');
+        s.className = 'trail-heart';
+        s.textContent = ['💖','💜','💙','💗','💞'][i%5];
+        const ang = (i/28)*Math.PI*2, r = 10 + Math.random()*60;
+        s.style.left = (x + Math.cos(ang)*r) + 'px';
+        s.style.top  = (y + Math.sin(ang)*r) + 'px';
+        document.body.appendChild(s);
+        setTimeout(()=> s.remove(), 1000);
+      }
+    }
+    document.getElementById('confettiBtn').addEventListener('click', () => {
+      const rect = document.getElementById('scene').getBoundingClientRect();
+      burst(rect.left + rect.width/2, rect.top + rect.height/2);
+    });
+
+    // ---------- STAR SHOWER ----------
+    document.getElementById('sparkBtn').addEventListener('click', () => {
+      for(let i=0;i<20;i++) setTimeout(dropEmoji, i*120);
+    });
+
+    // ---------- HEART TRAIL CURSOR ----------
+    window.addEventListener('pointermove', (e)=>{
+      if(Math.random()>.65) return; // fewer hearts
+      const h = document.createElement('div');
+      h.className = 'trail-heart';
+      h.textContent = Math.random()>.5 ? '💖' : '💫';
+      h.style.left = e.clientX + 'px';
+      h.style.top  = e.clientY + 'px';
+      document.body.appendChild(h);
+      setTimeout(()=> h.remove(), 900);
+    });
+
+    // ---------- SECRET NOTE (localStorage) ----------
+    const note = document.getElementById('note');
+    const noteShow = document.getElementById('noteShow');
+    const KEY = 'besties-secret-note';
+    const saved = localStorage.getItem(KEY);
+    if(saved){ noteShow.textContent = 'Saved: ' + saved; }
+    document.getElementById('saveNote').addEventListener('click', ()=>{
+      localStorage.setItem(KEY, note.value);
+      noteShow.textContent = 'Saved: ' + note.value;
+      note.value='';
+    });
+
+    // ---------- JAR OF HEARTS ----------
+    document.getElementById('jarBtn').addEventListener('click', ()=>{
+      const { innerWidth:W, innerHeight:H } = window;
+      for(let i=0;i<20;i++) setTimeout(()=>{
+        const h = document.createElement('div');
+        h.className = 'trail-heart';
+        h.textContent = ['💖','💗','💓','💞','💘'][Math.floor(Math.random()*5)];
+        h.style.left = (W/2 + (Math.random()*120 - 60)) + 'px';
+        h.style.top  = (H - 60) + 'px';
+        document.body.appendChild(h);
+        setTimeout(()=> h.remove(), 900);
+      }, i*70);
+    });
+
+    // ---------- SIMPLE AUDIO CONTROLS ----------
+    const audio = document.getElementById('audio');
+    document.getElementById('play').onclick = () => audio.play();
+    document.getElementById('pause').onclick = () => audio.pause();
+    // Tip: Replace src="song.mp3" with your file in the same folder. Browser blocks autoplay, so use Play ▶️ first.
+  </script>s
+
+  <!--
+  HOW TO USE 💡
+  1) Save this file as besties.html.
+  2) Put an MP3 named song.mp3 in the SAME folder (or edit the src).
+  3) Open the file in your browser. Click Play to start music.
+  4) Click Upload 1/2 to add your photos. Click captions to edit names.
+  5) Share this page file with your bestie! (They only need the HTML + the MP3.)
+  -->
+</body>
+</html>

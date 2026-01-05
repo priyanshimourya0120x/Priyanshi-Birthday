@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday — Step by Step Celebration</title>
+  
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  color: #222;
+  text-align: center;
+  overflow-x: hidden;
+}
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+h1 {
+  font-size: 2rem;
+  margin-top: 40px;   /* value badhao = aur niche */
+  color: #ff3e6c;
+  text-shadow: 2px 2px #fff;
+}
+
+
+header {
+  padding: 15px;
+}
+
+.controls {
+  margin: 15px 0;
+}
+
+button {
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 6px;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.08);
+  background: #e63950;
+}
+
+button.secondary {
+  background: #6c63ff;
+}
+
+footer {
+  margin: 30px 0 10px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* ==============================
+   Stage Area
+============================== */
+.stage {
+  position: relative;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  height: 420px;
+  background: #fff8f0;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  overflow: hidden;
+  padding: 15px;
+}
+
+.caption {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ==============================
+   Table + Cake
+============================== */
+.table {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: #d2691e;
+  border-radius: 20px 20px 0 0;
+}
+
+.plate {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 30px;
+  background: #eee;
+  border-radius: 50%;
+}
+
+/* Cake */
+.cake {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 140px;
+}
+
+.layer {
+  width: 100%;
+  height: 70px;
+  border-radius: 12px;
+  background: #ffb347;
+  position: relative;
+}
+
+.layer.top {
+  background: #ff6961;
+}
+
+.cream {
+  width: 100%;
+  height: 20px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+}
+
+/* Candle */
+.candle {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 40px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.flame {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 20px;
+  background: radial-gradient(circle, #ffec85, #ff9900);
+  border-radius: 50% 50% 50% 50%;
+  opacity: 0;
+}
+
+.flame.lit {
+  opacity: 1;
+  animation: flicker 0.4s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  to { transform: translateX(-50%) scale(1.2); opacity: 1; }
+}
+
+/* ==============================
+   Knife + Slice
+============================== */
+.knife {
+  position: absolute;
+  bottom: 120px;
+  left: -80px;
+  width: 90px;
+  height: 15px;
+  background: silver;
+  border-radius: 4px;
+  transform: rotate(20deg);
+  transition: all 1s ease;
+}
+
+.knife.slice {
+  left: 50%;
+  bottom: 140px;
+  transform: rotate(-40deg);
+}
+
+.slice-piece {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  width: 60px;
+  height: 70px;
+  background: #ff6961;
+  border-radius: 6px;
+  opacity: 0;
+  transition: all 1.2s ease;
+}
+
+.slice-piece.out {
+  transform: translateX(120px) translateY(40px);
+  opacity: 1;
+}
+
+/* ==============================
+   Balloons
+============================== */
+.balloon {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  border-radius: 50%;
+  background: red;
+  opacity: 0;
+}
+
+.balloon.f1 { background: #ff6f91; }
+.balloon.f2 { background: #ff9671; }
+.balloon.f3 { background: #ffc75f; }
+
+.balloon.fly {
+  animation: flyBalloon 6s linear forwards;
+}
+
+@keyframes flyBalloon {
+  0% { bottom: -20%; opacity: 1; }
+  100% { bottom: 120%; opacity: 0; }
+}
+
+/* ==============================
+   Cards
+============================== */
+.cards {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  background: #ff6f91;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  transform: scale(0);
+  transition: transform 0.6s ease;
+}
+
+.card.purple { background: #845ec2; }
+
+.card.show {
+  transform: scale(1);
+}
+
+/* ==============================
+   Emojis Floating
+============================== */
+.emoji {
+  position: absolute;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-420px); opacity: 0; }
+}
+
+/* ==============================
+   Sparks Around Candle
+============================== */
+.spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: yellow;
+  border-radius: 50%;
+  animation: sparkMove 1.2s linear infinite;
+}
+
+@keyframes sparkMove {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.3); opacity: 0; }
+}
+
+/* ==============================
+   Dance Floor + Dancers
+============================== */
+.dancefloor {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: #222;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.dancer {
+  position: relative;
+  width: 40px;
+  height: 80px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s;
+}
+
+.dancer.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: dance 1s infinite alternate;
+}
+
+.head {
+  width: 22px;
+  height: 22px;
+  background: #ffe0bd;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.body {
+  width: 14px;
+  height: 32px;
+  background: #ff4d6d;
+  margin: auto;
+  border-radius: 4px;
+}
+
+.arm {
+  position: absolute;
+  width: 20px;
+  height: 6px;
+  background: #ffe0bd;
+  top: 22px;
+}
+
+.arm.left { left: -20px; }
+.arm.right { right: -20px; }
+
+.leg {
+  position: absolute;
+  bottom: 0;
+  width: 8px;
+  height: 26px;
+  background: #222;
+}
+
+.leg.left { left: 4px; transform: rotate(10deg); }
+.leg.right { right: 4px; transform: rotate(-10deg); }
+
+@keyframes dance {
+  0% { transform: translateY(0) rotate(-5deg); }
+  100% { transform: translateY(-6px) rotate(5deg); }
+}
+  
+</style>
+</head>
+<body>
+  <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <div class="app">
+    <header>
+      <div aria-live="polite" id="status" class="sr">Ready</div>
+      <h1>🎂 Happy Birthday —  Celebration</h1>
+      <div class="controls">
+        <button id="play">▶️ Play Sequence</button>
+        <button id="reset" class="secondary">🔁 Reset</button>
+        <button id="music" src="images/happy birthday.mp4" class="secondary">🎵 Music</button>
+        <button id="speed" class="secondary" title="Toggle normal / fast">⏩ Speed: Normal</button>
+      </div>
+    </header>
+
+    <div class="stage" id="stage" role="img" aria-label="Birthday cake on a table with balloons, hearts and dancing people">
+      <div class="caption" id="caption">Tap ▶️ Play to begin…</div>
+
+      <!-- stars/sparks -->
+      <div id="sparks"></div>
+
+      <!-- table/plate  -->
+      <div class="table"></div>
+      <div class="plate"></div>
+
+      <!-- cake build -->
+      <div class="cake" id="cake">
+        <div class="cream"></div>
+        <div class="layer top">
+          <div class="candle" id="candle">
+            <div class="flame" id="flame" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="layer bottom"></div>
+      </div>
+
+      <!-- knife for slicing -->
+      <div class="knife" id="knife"></div>
+
+      <!-- the slice that comes out -->
+      <div class="slice-piece" id="slice"></div>
+
+      <!-- balloons -->
+      <div class="balloon f1" id="b1" style="left:12%;bottom:-12%"></div>
+      <div class="balloon f2" id="b2" style="left:24%;bottom:-14%"></div>
+      <div class="balloon f3" id="b3" style="left:36%;bottom:-16%"></div>
+
+      <!-- hearts & emojis layer -->
+      <div class="float" id="float"></div>
+
+      <!-- greeting cards -->
+      <div class="cards">
+        <div class="card" id="card1">🎉 Happy Day!</div>
+        <div class="card purple" id="card2">💖 Piyush </div>
+        <div class="card" id="card3">🎁 Best Wishes</div>
+      </div>
+
+      <!-- dance floor -->
+      <div class="dancefloor" id="dance">
+        <div class="dancer" id="d1">
+          <div class="head"></div><div class="body"></div>
+          <div class="arm left"></div><div class="arm right"></div>
+          <div class="leg left"></div><div class="leg right"></div>
+        </div>
+        <div class="dancer" id="d2">
+          <div class="head"></div><div class="body"></div>
+          <div class="arm left"></div><div class="arm right"></div>
+          <div class="leg left"></div><div class="leg right"></div>
+        </div>
+        <div class="dancer" id="d3">
+          <div class="head"></div><div class="body"></div>
+          <div class="arm left"></div><div class="arm right"></div>
+          <div class="leg left"></div><div class="leg right"></div>
+        </div>
+      </div>
+    </div>
+
+  <!-- song part close -->
+
+    <footer>Made by Priyanshi</footer>
+  </div>
+
+  <audio id="song" preload="auto">
+    <source src="images/baby mere birthday pr.mp4" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const caption = document.getElementById('caption');
+    const flame = document.getElementById('flame');
+    const knife = document.getElementById('knife');
+    const slice = document.getElementById('slice');
+    const balloons = [document.getElementById('b1'), document.getElementById('b2'), document.getElementById('b3')];
+    const cards = [document.getElementById('card1'), document.getElementById('card2'), document.getElementById('card3')];
+    const dancers = [document.getElementById('d1'), document.getElementById('d2'), document.getElementById('d3')];
+    const floatLayer = document.getElementById('float');
+    const sparks = document.getElementById('sparks');
+    const song = document.getElementById('song');
+
+    const playBtn = document.getElementById('play');
+    const resetBtn = document.getElementById('reset');
+    const musicBtn = document.getElementById('music');
+    const speedBtn = document.getElementById('speed');
+
+    let FAST = false;
+    function delay(ms){ return new Promise(res => setTimeout(res, FAST? ms*0.6 : ms)); }
+
+    function setCaption(text){ caption.textContent = text; statusEl.textContent = text; }
+
+    function resetAll(){
+      flame.classList.remove('lit');
+      knife.classList.remove('slice');
+      slice.classList.remove('out');
+      balloons.forEach(b => { b.classList.remove('fly'); b.style.opacity = 0; });
+      cards.forEach(c => c.classList.remove('show'));
+      dancers.forEach(d => d.classList.remove('show'));
+      caption.textContent = 'Tap ▶️ Play to begin…';
+      floatLayer.innerHTML = '';
+      sparks.innerHTML = '';
+    }
+
+    function spawnEmojis(){
+      const items = ['🎈','🎈','🎈','💖','💝','💕','💗','✨','🎉','🍰','🎂','🥳'];
+      for(let i=0;i<28;i++){
+        const span = document.createElement('span');
+        span.className='emoji';
+        span.textContent = items[Math.floor(Math.random()*items.length)];
+        span.style.left = Math.random()*96 + 2 + '%';
+        span.style.bottom = (Math.random()*6 + 2) + '%';
+        span.style.animationDelay = (Math.random()*3).toFixed(2)+'s';
+        span.style.fontSize = (Math.random()*24 + 22) + 'px';
+        floatLayer.appendChild(span);
+      }
+    }
+
+    function sparkleAroundCandle(){
+      for(let i=0;i<14;i++){
+        const sp = document.createElement('div');
+        sp.className='spark';
+        const x = 50 + Math.cos((i/14)*Math.PI*2)*7;
+        const y = 42 + Math.sin((i/14)*Math.PI*2)*9;
+        sp.style.left = x+'%';
+        sp.style.top = y+'%';
+        sp.style.animationDelay = (Math.random()*1.2).toFixed(2)+'s';
+        sparks.appendChild(sp);
+      }
+    }
+
+    async function playSequence(){
+      playBtn.disabled = true; resetBtn.disabled = true; speedBtn.disabled = true;
+      try{
+        // 1) Intro
+        setCaption('1/6 — Full cake appears 🎂');
+        await delay(900);
+
+        // 2) Light the candle
+        setCaption('2/6 — Light the candle 🔥');
+        flame.classList.add('lit');
+        sparkleAroundCandle();
+        await delay(1500);
+
+        // 3) Make a wish!
+        setCaption('3/6 — Make a wish… ✨');
+        await delay(1100);
+
+        // 4) Cut the cake
+        setCaption('4/6 — Cutting the cake 🔪');
+        knife.classList.add('slice');
+        await delay(1200);
+        slice.classList.add('out');
+        await delay(1300);
+
+        // 5) Balloons & hearts
+        setCaption('5/6 — Balloons, hearts & cards 🎈💖');
+        balloons.forEach((b,i)=> setTimeout(()=>{ b.classList.add('fly'); b.style.opacity=1; }, i*220));
+        spawnEmojis();
+        cards.forEach((c)=> c.classList.add('show'));
+        await delay(2000);
+
+        // 6) Dance party
+        setCaption('6/6 — Dance time! 🕺💃');
+        dancers.forEach((d,i)=> setTimeout(()=> d.classList.add('show'), i*180));
+        await delay(2000);
+
+        setCaption('🎉 Happy Birthday! Enjoy the party 🥳');
+      } finally {
+        playBtn.disabled = false; resetBtn.disabled = false; speedBtn.disabled = false;
+      }
+    }
+
+    playBtn.addEventListener('click', playSequence);
+    resetBtn.addEventListener('click', resetAll);
+
+    musicBtn.addEventListener('click', async ()=>{
+      try{ await song.play(); musicBtn.textContent = '⏸️ Pause Music'; musicBtn.onclick = ()=>{ song.pause(); musicBtn.textContent='🎵 Music'; musicBtn.onclick=null; } }catch(e){ alert('Tap Play Sequence first, then try again to allow audio.'); }
+    });
+
+    speedBtn.addEventListener('click', ()=>{
+      FAST = !FAST; speedBtn.textContent = FAST? '⏩ Speed: Fast' : '⏩ Speed: Normal';
+    });
+
+    // Start in a clean state
+    resetAll();
+  </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

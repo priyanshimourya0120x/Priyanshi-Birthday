@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎂</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: "Comic Sans MS", cursive;
+    }
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+    h1 {
+      font-size: 50px;
+      color: #fff;
+      text-shadow: 0 0 20px #ff1493, 0 0 30px #ff69b4;
+      animation: glow 2s infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px #ff4081, 0 0 40px #ff6347; }
+      to { text-shadow: 0 0 30px #ffeb3b, 0 0 60px #42a5f5; }
+    }
+
+    /* 3D Cube Setup */
+    .scene {
+      width: 350px;
+      height: 250px;
+      perspective: 1000px;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 18s infinite linear;
+    }
+
+    .cube video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.8);
+    }
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(175px); }
+    .back   { transform: rotateY(180deg) translateZ(175px); }
+    .right  { transform: rotateY(90deg) translateZ(175px); }
+    .left   { transform: rotateY(-90deg) translateZ(175px); }
+    .top    { transform: rotateX(90deg) translateZ(125px); }
+    .bottom { transform: rotateX(-90deg) translateZ(125px); }
+
+    @keyframes rotateCube {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      25%  { transform: rotateX(0deg) rotateY(90deg); }
+      50%  { transform: rotateX(0deg) rotateY(180deg); }
+      75%  { transform: rotateX(0deg) rotateY(270deg); }
+      100% { transform: rotateX(0deg) rotateY(360deg); }
+    }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.8;
+    }
+
+    .balloon:after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 60px;
+      background: #333;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <h1>🎉 Happy Birthday 🎂</h1>
+
+  <!-- 3D Video Cube -->
+  <div class="scene">
+    <div class="cube">
+      <div class="face front"><video autoplay loop ><source src="images/nidhi and m wedding veido.mp4" type="video/mp4"></video></div>
+      <div class="face back"><video autoplay loop muted><source src="images/mandir.mp4" type="video/mp4"></video></div>
+      <div class="face right"><video autoplay loop muted><source src="images/saahayri.mp4" type="video/mp4"></video></div>
+      <div class="face left"><video autoplay loop muted><source src="images/vedio photo.mp4" type="video/mp4"></video></div>
+      <div class="face top"><video autoplay loop muted><source src="images/didi s birthday.mp4" type="video/mp4"></video></div>
+      <div class="face bottom"><video autoplay loop muted><source src="images/happy birthday.mp4" type="video/mp4"></video></div>
+    </div>
+  </div>
+
+  <h2 style="color:#fff; text-shadow: 0 0 15px #000;">✨ Wishing you love, joy & happiness always! ✨</h2>
+
+  <script>
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      
+      // Random position + color
+      balloon.style.left = Math.random() * window.innerWidth + 'px';
+      balloon.style.background =
+        ['#ff4081','#ffeb3b','#42a5f5','#66bb6a','#ab47bc'][Math.floor(Math.random()*5)];
+      
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 8000);
+    }
+
+    // Keep creating balloons
+    setInterval(createBalloon, 700);
+  </script>
+</body>
+</html>

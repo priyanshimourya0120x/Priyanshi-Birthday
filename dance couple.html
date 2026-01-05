@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Couple Dance 💑</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #ffe6f0, #e3f2fd);
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+    }
+    /* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+
+
+    h1 {
+      position: absolute;
+      top: 30px;
+      font-size: 2.2rem;
+      color: #d6336c;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .stage {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 4rem;
+      animation: coupleDance 4s infinite ease-in-out;
+    }
+
+    .girl, .boy {
+      display: inline-block;
+      animation: sway 2s infinite ease-in-out;
+    }
+
+    .girl { animation-delay: 0s; }
+    .boy { animation-delay: 1s; }
+
+    /* Couple spinning animation */
+    @keyframes coupleDance {
+      0%   { transform: rotate(0deg) scale(1); }
+      25%  { transform: rotate(10deg) scale(1.05); }
+      50%  { transform: rotate(0deg) scale(1); }
+      75%  { transform: rotate(-10deg) scale(1.05); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    /* Individual sway for realism */
+    @keyframes sway {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Floating romantic symbols */
+    .symbol {
+      position: fixed;
+      font-size: 24px;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="images/hamri najariya se dheka hamre piya ji ke.mp4" type="audio/mp3">
+  </audio>
+
+  <h1>💞 Dancing Together Forever 💞</h1>
+
+  <div class="stage">
+    <div class="girl">💃</div>
+    🤝
+    <div class="boy">🕺</div>
+  </div>
+
+  <script>
+    // Floating romantic symbols
+    const symbols = ["❤️","🌹","✨","💕","💋","💞"];
+    function createSymbol() {
+      const symbol = document.createElement("div");
+      symbol.classList.add("symbol");u
+      symbol.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      symbol.style.left = Math.random() * window.innerWidth + "px";
+      symbol.style.fontSize = (20 + Math.random()*40) + "px";
+      symbol.style.animationDuration = (5 + Math.random() * 6) + "s";
+      document.body.appendChild(symbol);
+      setTimeout(() => symbol.remove(), 8000);
+    }
+    setInterval(createSymbol, 700);
+  </script>
+
+</body>
+</html>

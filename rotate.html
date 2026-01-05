@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Love Carousel</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #ffccd5; /* light red background */
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+    h1 {
+      font-size: 2.7rem;
+      color: #fff;
+      text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff1e56;
+      margin-bottom: 30px;
+      animation: glow 2s infinite alternate, bounce 3s ease-in-out infinite;
+      z-index: 3;
+      position: relative;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff1e56; }
+      to { text-shadow: 0 0 20px #ff1e56, 0 0 40px #ff4d6d; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    .carousel {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 20s linear infinite;
+      z-index: 2;
+      margin-top: -80px;
+
+}
+
+.carousel img {
+  position: absolute;
+  width: 200px;
+  height: 250px;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  border: 3px solid #fff;
+}
+
+
+    /* Positioning images in circle */
+    .carousel img:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
+    .carousel img:nth-child(2) { transform: rotateY(60deg) translateZ(400px); }
+    .carousel img:nth-child(3) { transform: rotateY(120deg) translateZ(400px); }
+    .carousel img:nth-child(4) { transform: rotateY(180deg) translateZ(400px); }
+    .carousel img:nth-child(5) { transform: rotateY(240deg) translateZ(400px); }
+    .carousel img:nth-child(6) { transform: rotateY(300deg) translateZ(400px); }
+
+    @keyframes rotate {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    /* Music Control Button */
+    .music-control {
+      margin-top: 20px;
+      z-index: 3;
+      position: relative;
+    }
+
+    button {
+      background: #ff1e56;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff4d6d;
+      transform: scale(1.1);
+    }
+
+    /* Floating Hearts Animation */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(1); opacity: 1; }
+      to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Falling Sparkles */
+    .sparkle {
+      position: absolute;
+      color: #fff;
+      font-size: 10px;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ffd6e0;
+      animation: fall 5s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <!-- Beautiful Title -->
+  <h1>❤  Family Happiness  ❤</h1>
+
+  <!-- 3D Image Carousel -->
+  <div class="carousel">
+    <img src="images/didii me and baarish.jpeg" alt="">
+    <img src="images/didi andm e.jpeg" alt="">
+    <img src="images/kavya .jpeg" alt="">
+    <img src="images/divyo piyush.jpeg" alt="">
+    <img src="images/didi and me.jpeg" alt="">
+    <img src="images/kavya aur mein.jpeg" alt="">
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" loop>
+    <source src="images/chot choti khuhshiyon m .mp4" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Play/Pause Button -->
+  <div class="music-control">
+    <button onclick="toggleMusic()">🎶 Play / Pause Music</button>
+  </div>
+
+  <script>
+    const music = document.getElementById("bg-music");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = ["❤","💕","💖","🥰","😍","💞"][Math.floor(Math.random()*6)];
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+    setInterval(createHeart, 700);
+
+    // Falling sparkles
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.innerText = "✨";
+      sparkle.style.left = Math.random() * window.innerWidth + "px";
+      sparkle.style.fontSize = Math.random() * 10 + 10 + "px";
+      sparkle.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 5000);
+    }
+    setInterval(createSparkle, 500);
+  </script>
+</body>
+</html>

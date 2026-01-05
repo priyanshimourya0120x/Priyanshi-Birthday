@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Special Celebration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        .confetti:nth-child(odd) {
+            background: #feca57;
+            animation-delay: -0.5s;
+        }
+
+        .confetti:nth-child(3n) {
+            background: #48dbfb;
+            animation-delay: -1s;
+        }
+
+        .confetti:nth-child(4n) {
+            background: #ff9ff3;
+            animation-delay: -1.5s;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .main-title {
+            font-size: 4rem;
+            color: #ff6b6b;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), 0 0 20px #ff6b6b;
+            }
+            to {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), 0 0 30px #ff6b6b, 0 0 40px #ff6b6b;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-image {
+            text-align: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .celebration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .celebration-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .celebration-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card-image {
+            margin-bottom: 20px;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-image img:hover {
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, #feca57, #ff6b6b);
+        }
+
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .countdown-title {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 100px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .time-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .wishes-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .wishes-title {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+        }
+
+        .wish-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .wish-input:focus {
+            border-color: #feca57;
+        }
+
+        .wishes-display {
+            margin-top: 30px;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .wish-item {
+            background: linear-gradient(45deg, #ff9ff3, #48dbfb);
+            color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            animation: wishSlideIn 0.5s ease-out;
+        }
+
+        @keyframes wishSlideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .celebration-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown-timer {
+                gap: 10px;
+            }
+
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+    <!-- Confetti Animation -->
+    <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="confetti" style="left: 20%; animation-delay: 0.2s;"></div>
+    <div class="confetti" style="left: 30%; animation-delay: 0.4s;"></div>
+    <div class="confetti" style="left: 40%; animation-delay: 0.6s;"></div>
+    <div class="confetti" style="left: 50%; animation-delay: 0.8s;"></div>
+    <div class="confetti" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="confetti" style="left: 70%; animation-delay: 1.2s;"></div>
+    <div class="confetti" style="left: 80%; animation-delay: 1.4s;"></div>
+    <div class="confetti" style="left: 90%; animation-delay: 1.6s;"></div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1 class="main-title">BIRTHDAY SPECIAL</h1>
+            <p class="subtitle">Make Every Moment Magical and Unforgettable</p>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h2 style="color: #ff6b6b; font-size: 2.5rem; margin-bottom: 20px;">It's My Birthday zCelebrate in Style</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #555;">
+                   ye birthday wish sirf mere liye hai...kow i started to love myself ...khud ki baate khud ki personality , khud ki body ..... and everything khud ka...koi nhi hai to kya hua....acha hai nhi hai bhagwan jo karte hai acha krte hai bahut kuch paya .. bahut khoya.... bahut roya......and mujhe pura vishwas hai ki jitna mene khoya ussse lakh guna acha paya hai bs accept usme pyaar kbhi nhi mila........but ek din mein bahut paisa kamaungi aur bahut paisa kamaungi.....mujhe nhi pta ye sab mein kr lungi ya nhi but din raat iski mehnat krti hu ki regret na reh jaye ki mene koshish nahi ki kabhi......
+                </p>
+                <button class="btn" onclick="startCelebration()" style="margin-top: 20px;">Start Celebration</button>
+            </div>
+            <div class="hero-image">
+                <img src="images/94 cafe.jpeg" alt="image" />
+            </div>
+        </div>
+
+        <!-- Celebration Features -->
+        <div class="celebration-grid">
+            <div class="celebration-card">
+                <div class="card-image">
+                    <img src="images/mee.jpeg" alt="Three-tier birthday cake with rainbow frosting, colorful sprinkles, lit candles, and decorative flowers on top, sitting on an elegant cake stand" />
+                </div>
+                <h3 class="card-title">Delicious Cakes</h3>
+                <p class="card-description">You are like Chocolate yummy😘😘.
+                    Can I taste you..
+                </p>
+                <button class="btn" onclick="showCakeOptions()">View ME</button>
+            </div>
+
+            <div class="celebration-card">
+                <div class="card-image">
+                    <img src="images/birthdya image.webp" alt="Party room decorated with helium balloons in multiple colors, twisted balloon arches, balloon bouquets, and balloon sculptures creating a festive atmosphere" />
+                </div>
+                <h3 class="card-title">Party Decorations</h3>
+                <p class="card-description">Again Janamdin ki haardik Subhkaamnaaye🥰🫂😌🎁🎈🎀🎉💌.</p>
+                <button class="btn" onclick="showDecorations()">Life long</button>
+            </div>
+
+            <div class="celebration-card">
+                <div class="card-image">
+                    <img src="images/k and me.jpeg" alt="Collection of beautifully wrapped gift boxes in various sizes with colorful ribbons, bows, and gift tags, arranged artistically with party confetti scattered around" />
+                </div>
+                <h3 class="card-title">Special Gifts</h3>
+                <p class="card-description">I am the unique and thoughtful gift for you bring smiles and create beautiful memories for the special birthday person.</p>
+                <button class="btn" onclick="showGifts()">Care your Gifts</button>
+            </div>
+        </div>
+
+        <!-- Countdown Section -->
+        <div class="countdown-section">
+            <h2 class="countdown-title">Birthday Countdown</h2>
+            <div class="countdown-timer" id="countdown">
+                <div class="time-unit">
+                    <span class="time-number" id="days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">00</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="seconds">00</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+            <button class="btn" onclick="setBirthdayDate()" style="margin-top: 20px;">Set Birthday Date</button>
+        </div>
+
+        <!-- Birthday Wishes Section -->
+        <div class="wishes-section">
+            <h2 class="wishes-title">Birthday Wishes</h2>
+            <input type="text" class="wish-input" id="wishInput" placeholder="Write your birthday wish here..." />
+            <button class="btn" onclick="addWish()">Add Wish</button>
+            <div class="wishes-display" id="wishesDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        // Birthday Countdown Timer
+        let birthdayDate = new Date();
+        birthdayDate.setDate(birthdayDate.getDate() + 30); // Default to 30 days from now
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = birthdayDate.getTime() - now;
+
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = '<h2 style="color: #ff6b6b;">Happy Birthday! Time to Celebrate!</h2>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Birthday Wishes Functionality
+        const wishes = [];
+
+        function addWish() {
+            const wishInput = document.getElementById('wishInput');
+            const wish = wishInput.value.trim();
+            
+            if (wish) {
+                wishes.push(wish);
+                displayWishes();
+                wishInput.value = '';
+                wishInput.focus();
+            }
+        }
+
+        function displayWishes() {
+            const wishesDisplay = document.getElementById('wishesDisplay');
+            wishesDisplay.innerHTML = '';
+            
+            wishes.forEach((wish, index) => {
+                const wishElement = document.createElement('div');
+                wishElement.className = 'wish-item';
+                wishElement.innerHTML = `<strong>Wish ${index + 1}:</strong> ${wish}`;
+                wishesDisplay.appendChild(wishElement);
+            });
+        }
+
+        // Interactive Functions
+        function startCelebration() {
+            // Create celebration effect
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 100);
+            }
+            
+            alert('Let the celebration begin! Happy Birthday!');
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+
+        function setBirthdayDate() {
+            const date = prompt('Enter the birthday date (YYYY-MM-DD):');
+            if (date) {
+                const newDate = new Date(date);
+                if (!isNaN(newDate.getTime())) {
+                    birthdayDate = newDate;
+                    updateCountdown();
+                    alert('Birthday date set successfully!');
+                } else {
+                    alert('Please enter a valid date format (YYYY-MM-DD)');
+                }
+            }
+        }
+
+        function showCakeOptions() {
+            alert('Cake options: Chocolate Delight, Vanilla Dream, Red Velvet, Fruit Paradise, Custom Design. Contact us to order!');
+        }
+
+        function showDecorations() {
+            alert('Decoration packages: Balloon Paradise, Streamers & Banners, Themed Decorations, Custom Color Schemes. Let us make it magical!');
+        }
+
+        function showGifts() {
+            alert('Gift ideas: Personalized Items, Experience Vouchers, Hobby-related Gifts, Memory Books, Surprise Boxes. Make it memorable!');
+        }
+
+        // Allow adding wishes with Enter key
+        document.getElementById('wishInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addWish();
+            }
+        });
+
+        // Add some sample wishes to get started
+        wishes.push("May all your dreams come true!");
+        wishes.push("Wishing you happiness and joy on your special day!");
+        wishes.push("Another year of wonderful memories ahead!");
+        displayWishes();
+    </script>
+</body>
+</html>
+
+
+

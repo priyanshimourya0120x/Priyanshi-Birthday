@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Magical Love Story 💖✨</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #1b0034, #0d001f, #000);
+      color: white;
+      font-family: 'Georgia', serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+    /* Header */
+    .header {
+      text-align: center;
+      padding-top: 40px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .header h1 {
+      font-size: 3.2em;
+      font-family: 'Brush Script MT', cursive;
+      color: #ffccff;
+      text-shadow: 0 0 20px #ff66cc;
+    }
+    .header p {
+      font-size: 1.3em;
+      color: #ffd;
+      margin-top: 10px;
+    }
+
+    /* Cards */
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 50px auto;
+      max-width: 1000px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      width: 250px;
+      height: 280px;
+      text-align: center;
+      margin: 0px 0px 0px 0px ;;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,182,255,0.3);
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+       .card img{
+      padding: 0px 0px;
+      margin: 0px 0px;
+      opacity: 0.5;
+      width: 250px;
+      height: 280px;
+      
+    }
+    .card.show {
+      animation: slideIn 1.5s forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(60px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+ 
+    .card h2 {
+      font-size: 1.5em;
+      margin-bottom: 5px;
+      color: #ff99ff;
+    }
+    .card h3 {
+      font-size: 1em;
+      margin-bottom: 15px;
+      color: #ffccee;
+    }
+    .card p {
+      font-size: 1em;
+      line-height: 1.4;
+      color: #fff;
+    }
+
+    /* Reveal button */
+    .reveal-btn {
+      display: block;
+      margin: 0px 580px;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      color: #fff;
+      background: linear-gradient(90deg, #ff66cc, #ff99ff);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff66cc;
+      transition: transform 0.2s;
+    }
+    .reveal-btn:hover { transform: scale(1.1); }
+
+    /* Floating Hearts */
+    .heart {
+      position: fixed;
+      color: pink;
+      font-size: 22px;
+      animation: float 6s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(1); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+    }
+
+    /* Twinkling stars */
+    .star {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.5); }
+    }
+
+    /* Shooting star */
+    .shooting-star {
+      position: fixed;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(white, transparent);
+      opacity: 0.7;
+      transform: rotate(45deg);
+      animation: shoot 2s linear;
+    }
+    @keyframes shoot {
+      from { transform: translate(-10vw, -10vh) rotate(45deg); opacity: 1; }
+      to { transform: translate(100vw, 100vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Music button */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff66cc;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff99ff;
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html">Best Vedio</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <!-- Header -->
+  <div class="header">
+    <h1>Our Magical Love Story 💕</h1>
+    <p>Every moment with you is written in the stars ✨</p>
+  </div>
+
+  <!-- Cards -->
+  <!-- <div class="cards">
+    <div class="card">
+      <h2>First Call</h2>
+      <h3>March 2022</h3>
+      <p>That first “Hello” made my heart race and my world brighter ❤</p>
+    </div>
+    <div class="card">
+      <h2>First Date</h2>
+      <h3>April 2022</h3>
+      <p>Coffee turned into hours of endless talks ☕🌙</p>
+    </div>
+    <div class="card">
+      <h2>First I Love You</h2>
+      <h3>June 2022</h3>
+      <p>Under the stars, you said those magical words ✨❤</p>
+    </div>
+  </div> -->
+
+  <!-- Reveal More Memories -->
+  <button class="reveal-btn" onclick="revealMore()">Reveal More Memories 💌</button>
+
+  <div class="cards extra" style="display:none;">
+    <div class="card">
+      <img src="images/black.jpeg">
+    
+    </div>
+    <div class="card">
+      <h2>Future Dreams</h2>
+      <h3>Forever ✨</h3>
+      <p>From little adventures to big dreams, I see us together always 💍</p>
+    </div>
+
+     <div class="card">
+        <img src="images/diwlai full.jpeg">
+          </div>
+
+     <div class="card">
+    <h2>Written in Fate</h2>
+<h3>Us, Always 💫</h3>
+<p>Through every season of life, my dreams feel complete when you're beside me 🤍</p>
+
+    </div>
+
+     <div class="card">
+        <img src="images/filter .jpeg">
+          </div>
+
+     <div class="card">
+  <h2>Our Forever Story</h2>
+<h3>Endless Love 💖</h3>
+<p>From today to forever, every dream I have begins and ends with you 🌸</p>
+
+    </div>
+
+     <div class="card">
+        <img src="images/green3.jpeg">
+          </div>
+
+     <div class="card">
+    <h2>Our Beautiful Tomorrow</h2>
+<h3>Always & Forever 💖</h3>
+<p>Every smile, every memory, every dream — I see my future with you in all of them ✨</p>
+
+    </div>
+
+     <div class="card">
+        <img src="images/gao wali.jpeg">
+          </div>
+
+     <div class="card">
+<h2>Dreams We Share</h2>
+<h3>Together Always 🌙</h3>
+<p>From simple moments to lifelong promises, my heart chooses you every time 💍</p>
+
+    </div>
+
+     
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="images/teri-ye-adaa-romantic-song-206526.mp3" type="audio/mp3">
+  </audio>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <script>
+    // Floating hearts
+    function createHeart() {
+      const symbols = ["💖","💝","❤️","💓","💕"];
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 24) + "px";
+      heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 800);
+
+    // Stars
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(star);
+    }
+
+    // Shooting star occasionally
+    function shootingStar() {
+      const s = document.createElement("div");
+      s.className = "shooting-star";
+      s.style.top = Math.random() * 50 + "vh";
+      s.style.left = Math.random() * 50 + "vw";
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 2000);
+    }
+    setInterval(shootingStar, 7000);
+
+    // Reveal more memories
+    function revealMore() {
+      document.querySelector(".extra").style.display = "flex";
+      const extraCards = document.querySelectorAll(".extra .card");
+      extraCards.forEach((card, i) => {
+        setTimeout(() => card.classList.add("show"), i * 2000 + 500);
+      });
+      document.querySelector(".reveal-btn").style.display = "none";
+    }
+
+    // Sequential card animations
+    const cards = document.querySelectorAll(".cards:first-of-type .card");
+    cards.forEach((card, i) => {
+      setTimeout(() => card.classList.add("show"), i * 2000 + 1000);
+    });
+
+    // Music toggle
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      if (music.paused) { music.play(); }
+      else { music.pause(); }
+    }
+  </script>
+</body>
+</html>

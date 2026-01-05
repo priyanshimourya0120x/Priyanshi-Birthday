@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Emoji Dance Floor 💃🕺</title>
+<style>
+  :root{
+    --tile: 90px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,Segoe UI,Arial;
+    color:#222;
+    background:#111;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+      padding-top: 80px;
+    overflow-x:hidden;
+  }
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+  /* Disco lights */
+  .disco{
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(1200px 600px at 0% 0%, #ff6b6b20, transparent 60%),
+      radial-gradient(800px 800px at 100% 20%, #ffd93d20, transparent 60%),
+      radial-gradient(900px 900px at 50% 100%, #6bcBff20, transparent 60%),
+      linear-gradient(120deg,#151515 0%, #1a1a1a 50%, #151515 100%);
+    animation: swirl 12s linear infinite;
+    z-index:-2;
+  }
+  @keyframes swirl{
+    0%{filter:hue-rotate(0deg) brightness(1)}
+    50%{filter:hue-rotate(180deg) brightness(1.2)}
+    100%{filter:hue-rotate(360deg) brightness(1)}
+  }
+
+  header{
+    margin-top:18px;
+    text-align:center;
+    color:#fff;
+  }
+  header h1{
+    margin:0 0 6px;
+    font-weight:800;
+    letter-spacing:.5px;
+  }
+  header p{opacity:.85;margin:0}
+
+  /* Controls */
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+  }
+  button, .file{
+    border:none;
+    background:#ffffff10;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:999px;
+    backdrop-filter: blur(6px);
+    cursor:pointer;
+    transition:transform .08s ease, background .2s;
+    box-shadow:0 8px 20px #00000050, inset 0 0 0 1px #ffffff18;
+    font-weight:600;
+  }
+  button:hover{background:#ffffff20}
+  button:active{transform:scale(.96)}
+
+  /* Dance floor grid */
+  .floor{
+    width:min(1000px, 96vw);
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(var(--tile),1fr));
+    gap:16px;
+    padding:16px;
+  }
+  .tile{
+    height:var(--tile);
+    border-radius:18px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(180deg,#ffffff0c,#00000022);
+    box-shadow:
+      0 8px 24px #0000007a,
+      inset 0 0 0 2px #ffffff12;
+    position:relative;
+    overflow:hidden;
+  }
+  .tile::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(135deg, #ff6b6b22, #ffd93d22, #6bcBff22, #b16bff22);
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+
+  .emoji{
+    font-size:42px;
+    text-shadow:0 6px 20px #00000070;
+    filter: drop-shadow(0 2px 6px #00000060);
+    will-change: transform;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  /* Dances */
+  @keyframes bounce{
+    0%,100%{transform:translateY(0) rotate(0deg)}
+    25%{transform:translateY(-16px) rotate(-2deg)}
+    50%{transform:translateY(0) rotate(0)}
+    75%{transform:translateY(-10px) rotate(2deg)}
+  }
+  @keyframes wiggle{
+    0%,100%{transform:rotate(0deg)}
+    25%{transform:rotate(-12deg)}
+    50%{transform:rotate(0deg)}
+    75%{transform:rotate(12deg)}
+  }
+  @keyframes spin{
+    0%{transform:scale(1) rotate(0deg)}
+    50%{transform:scale(1.08) rotate(180deg)}
+    100%{transform:scale(1) rotate(360deg)}
+  }
+  @keyframes wave{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(10px)}
+    50%{transform:translateX(0)}
+    75%{transform:translateX(-10px)}
+    100%{transform:translateX(0)}
+  }
+
+  .dance-bounce{ animation:bounce 1s infinite ease-in-out }
+  .dance-wiggle{ animation:wiggle .9s infinite ease-in-out }
+  .dance-spin  { animation:spin 1.4s infinite linear }
+  .dance-wave  { animation:wave 1.2s infinite ease-in-out }
+
+  /* Floating symbols */
+  .float{
+    position:fixed; left:0; top:0;
+    pointer-events:none; z-index:-1; opacity:.9;
+    font-size:22px;
+    animation: rise linear forwards;
+    filter: drop-shadow(0 6px 10px #00000080);
+  }
+  @keyframes rise{
+    from{ transform:translate(var(--x), calc(100vh + 40px)) scale(var(--s)); opacity:1 }
+    to  { transform:translate(calc(var(--x) + var(--drift)), -60px) scale(var(--s)); opacity:0 }
+  }
+
+  /* Music bar */
+  .music{
+    position:fixed; bottom:10px; left:50%; transform:translateX(-50%);
+    display:flex; gap:8px; align-items:center;
+    padding:8px 12px; border-radius:999px;
+    background:#ffffff12; color:#fff;
+    box-shadow:0 8px 20px #00000060, inset 0 0 0 1px #ffffff20;
+    backdrop-filter: blur(8px);
+  }
+  .music small{opacity:.8}
+  input[type="range"]{accent-color:#ffd93d}
+</style>
+</head>
+<body>
+  <!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+  <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+<div class="disco"></div>
+
+<header>
+  <h1>Emoji Dance Floor 💃🕺</h1>
+  <p>Click emojis to change moves · Add more dancers · Turn on music!</p>
+  <h2>Amazing thing is for you Khushi🥰😍</h2>
+</header>
+
+<div class="controls">
+  <button id="add">Add Dancer ➕</button>
+  <button id="remove">Remove Dancer ➖</button>
+  <button id="shuffle">Shuffle Moves 🔀</button>
+  <button id="pulse">Beat Pulse ✨</button>
+  <label class="file">
+    <input id="file" type="file" accept="audio/*" hidden>
+    Load Your Song 🎶
+  </label>
+</div>
+
+<!-- Dance Floor -->
+<div class="floor" id="floor"></div>
+
+<!-- Music Controls -->
+<div class="music">
+  <button id="play">▶️ Play</button>
+  <button id="pause">⏸️ Pause</button>
+  <small>Volume</small>
+  <input id="vol" type="range" min="0" max="1" step="0.01" value="0.7">
+</div>
+
+<audio id="audio" loop>
+  Optional default track; replace src with your own or use "Load Your Song"
+    <source src="images/saj ke sawar ke jab.mp4" type="audio/mp3">
+</audio>
+
+<script>
+  // --- Config ---
+  const EMOJIS = ["💃","🕺","🦄","🫶","✨","🔥","🎉","😎","🐼","🌸","💖","🤩","🫰","💫"];
+  const DANCES = ["dance-bounce","dance-wiggle","dance-spin","dance-wave"];
+  const SYMBOLS = ["❤️","💖","✨","🎉","🌸","💫","🫶","💋","⭐"];
+
+  const floor = document.getElementById('floor');
+
+  // Create initial dancers
+  for(let i=0;i<12;i++) addDancer();
+
+  function randomItem(arr){ return arr[Math.floor(Math.random()*arr.length)] }
+
+  function addDancer(){
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    const span = document.createElement('span');
+    span.className = 'emoji ' + randomItem(DANCES);
+    span.textContent = randomItem(EMOJIS);
+    span.style.animationDelay = (Math.random()*0.6).toFixed(2)+'s';
+    span.style.animationDuration = (0.9 + Math.random()*0.8).toFixed(2)+'s';
+    span.title = 'Click to change dance';
+    span.addEventListener('click', () => {
+      // change dance style on click
+      DANCES.forEach(c => span.classList.remove(c));
+      span.classList.add(randomItem(DANCES));
+      span.textContent = randomItem(EMOJIS);
+    });
+    tile.appendChild(span);
+    floor.appendChild(tile);
+  }
+
+  function removeDancer(){
+    const tiles = floor.querySelectorAll('.tile');
+    if(tiles.length) tiles[tiles.length-1].remove();
+  }
+
+  function shuffleMoves(){
+    floor.querySelectorAll('.emoji').forEach(e=>{
+      DANCES.forEach(c => e.classList.remove(c));
+      e.classList.add(randomItem(DANCES));
+      e.style.animationDelay = (Math.random()*0.6).toFixed(2)+'s';
+      e.style.animationDuration = (0.9 + Math.random()*0.8).toFixed(2)+'s';
+    });
+  }
+
+  // Beat pulse (adds scale pulse to all tiles)
+  let pulsing = false, pulseTimer;
+  function togglePulse(){
+    pulsing = !pulsing;
+    if(pulsing){
+      pulseTimer = setInterval(()=>{
+        floor.querySelectorAll('.tile').forEach(t=>{
+          t.animate(
+            [{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}],
+            {duration:380, easing:'ease-out'}
+          );
+        });
+      }, 600);
+    } else {
+      clearInterval(pulseTimer);
+    }
+  }
+
+  document.getElementById('add').onclick = addDancer;
+  document.getElementById('remove').onclick = removeDancer;
+  document.getElementById('shuffle').onclick = shuffleMoves;
+  document.getElementById('pulse').onclick = togglePulse;
+
+  // Floating symbols generator
+  function spawnSymbol(){
+    const s = document.createElement('div');
+    s.className = 'float';
+    s.textContent = randomItem(SYMBOLS);
+    const x = Math.random()*window.innerWidth;
+    const drift = (Math.random()*120 - 60)+'px';
+    const size = 0.8 + Math.random()*1.6;
+    const dur = 6 + Math.random()*6;
+    s.style.setProperty('--x', x+'px');
+    s.style.setProperty('--drift', drift);
+    s.style.setProperty('--s', size);
+    s.style.left = 0;
+    s.style.top = 0;
+    s.style.animationDuration = dur+'s';
+    s.style.fontSize = (20*size + 10) + 'px';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), dur*1000 + 100);
+  }
+  setInterval(spawnSymbol, 400);
+
+  // Audio controls
+  const audio = document.getElementById('audio');
+  document.getElementById('play').onclick = ()=> audio.play();
+  document.getElementById('pause').onclick = ()=> audio.pause();
+  document.getElementById('vol').oninput = (e)=> audio.volume = e.target.value;
+
+  // Load user song
+  const file = document.getElementById('file');
+  file.addEventListener('change', (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    const url = URL.createObjectURL(f);
+    audio.src = url;
+    audio.play();
+  });
+</script>
+</body>
+</html>

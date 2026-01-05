@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Web World</title>
+
+<style>
+/* ========== RESET ========== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+body{
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+
+/* ========== HEADER ========== */
+header{
+  height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url("images/greeen suit.jpeg") center/cover no-repeat;
+  color:#fff;
+  position:relative;
+}
+.banner{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+}
+.banner h1{ font-size:50px; }
+.banner p{ font-size:20px; margin-top:15px; }
+.banner a{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 25px;
+  background:#ff9800;
+  color:#fff;
+  text-decoration:none;
+  border-radius:5px;
+}
+
+/* ========== SECTIONS ========== */
+section{
+  padding:70px 80px;
+  text-align:center;
+}
+section h2{
+  font-size:36px;
+  margin-bottom:20px;
+}
+section p{
+  max-width:800px;
+  margin:auto;
+  margin-bottom:40px;
+  color:#555;
+}
+
+/* ========== CARDS (SAME IMAGE SIZE) ========== */
+.features{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.card{
+  width:300px;
+  background:#f9f9f9;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+.card h3{ margin-bottom:10px; }
+
+/* ========== GALLERY SLIDER ========== */
+.gallery{
+  background:linear-gradient(135deg,#ffe0e9,#fff);
+}
+.slider{
+  max-width:650px;
+  margin:auto;
+}
+.slide{
+  display:none;
+  width:100%;
+  height:350px;
+  object-fit:cover;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+.slide.active{ display:block; }
+
+/* ========== FOOTER ========== */
+footer{
+  background:#333;
+  color:#fff;
+  padding:20px;
+}
+
+/* ========== LOVE HEART EFFECT ========== */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float{
+  0%{ transform:translateY(0); opacity:1;}
+  100%{ transform:translateY(-100vh); opacity:0;}
+}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:768px){
+  section{ padding:50px 25px; }
+  .features{ flex-direction:column; align-items:center; }
+  .banner h1{ font-size:32px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html" target="_blank">Couple Dance</a></li>
+        <li><a href="emojis dance.html" target="_blank">Emojis Dance</a></li>
+         <li><a href="slideshow.html" target="_blank">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html" target="_blank">Memories 🥹</a></li>
+        <li><a href="rotate.html" target="_blank">3D Rotate Video</a></li>
+             <li><a href="rotation 2 big.html" target="_blank">Big Roatation</a></li>
+        <li><A href="imp.html" target="_blank">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html" target="_blank">Sorry</a></li>
+        <li><a href="birthday celebration.html" target="_blank">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html" target="_blank">Vedios </a></li>
+        <li><a href="vedio11111.html" target="_blank">Best Vedio</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html" target="_blank">Besties love you</a></li>
+        <li ><a href="love calculator.html" target="_blank">Love calculator</a></li>
+        <li><a href="love story.html" target="_blank">Love Story </a></li>
+        <li><a href="gf.html" target="_blank">Gf Texts</a></li>
+        <li><a href="cheat.html" target="_blank">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html" target="_blank">Invitation</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="banner">
+    <h1>Welcome to My World</h1>
+    <p>Our Life Some Moments What I capture here</p>
+    <a href="#features">Ready for More!</a>
+  </div>
+</header>
+
+<!-- FEATURES -->
+<section id="features">
+  <h2>Our Memories 🥰</h2>
+  <p>mein khud ko bahut pasand krti hu......</p>
+
+  <div class="features">
+    <div class="card">
+      <img src="images/94 cafe.jpeg">
+      <h3>Birthday 2025</h3>
+      <p>Be happy always 🎂🍷</p>
+    </div>
+
+    <div class="card">
+      <img src="images/gao wali.jpeg">
+      <h3>World Beauty ❤️</h3>
+      <p>Nazar na lage meri jaan ko 😘</p>
+    </div>
+
+    <div class="card">
+      <img src="images/diwali.jpeg">
+      <h3>I have no words for my life in silently </h3>
+      <p>Yaadein hamesha rahein 💖</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <h2>Love Gallery 💕</h2>
+  <div class="slider">
+    <img src="images/filter .jpeg" class="slide active">
+    <img src="images/gao wali.jpeg" class="slide">
+    <img src="images/chahchi k ghr ki .jpeg" class="slide">
+
+    
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© By Priyanshi Mourya 2025</p>
+</footer>
+
+<!-- JS -->
+<script>
+/* Slider */
+let slides=document.querySelectorAll(".slide");
+let i=0;
+setInterval(()=>{
+  slides[i].classList.remove("active");
+  i=(i+1)%slides.length;
+  slides[i].classList.add("active");
+},3000);
+
+/* Hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>

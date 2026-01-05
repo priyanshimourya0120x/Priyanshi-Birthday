@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Video Player – Drop in your MP4</title>
+  <style>
+    /* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+    :root{
+      --bg:#0b0f1a; --card:#12182a; --muted:#8aa0b4; --accent:#5eead4; --ring:#94a3b8;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; background:radial-gradient(1000px 600px at 70% -10%,#182334,transparent), var(--bg); color:#e5f0ff; min-height:100vh;}
+
+    .wrap{min-height:100svh; display:grid; place-items:center; padding:24px}
+    .card{width:min(1100px,95vw); background:linear-gradient(180deg,#161d2f, #0f1422); border:1px solid #1f2b45; border-radius:24px; overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,.35)}
+
+    /* VIDEO AREA */
+    .video-area{position:relative; background:#000; min-height:300px;}
+    video{width:100%; height:auto; display:block; max-height:70vh;}
+
+    /* Big center play */
+    .center-play{position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; transition:.25s ease}
+    .center-play.hide{opacity:0}
+    .center-play button{pointer-events:auto; width:88px; height:88px; border-radius:999px; border:0; backdrop-filter:blur(6px); background:rgba(255,255,255,.12); color:#fff; font-size:0; box-shadow:0 12px 24px rgba(0,0,0,.35); cursor:pointer;}
+    .center-play button:after{content:"▶"; font-size:36px; margin-left:6px}
+
+    /* Overlay title */
+    .overlay{position:absolute; left:24px; bottom:24px; padding:14px 18px; border-radius:14px; background:rgba(15,20,34,.55); border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(8px)}
+    .overlay h1{margin:0; font-size:clamp(16px,2.2vw,24px)}
+    .overlay p{margin:6px 0 0; color:var(--muted); font-size:clamp(12px,1.6vw,14px)}
+
+    /* Controls */
+    .controls{display:flex; gap:10px; align-items:center; padding:14px 16px; background:linear-gradient(180deg,#0e1424,#0b0f1a); border-top:1px solid #1f2b45}
+    .row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .spacer{flex:1}
+    .btn, .chip, select, input[type="range"]{appearance:none; outline:none}
+    .btn{display:inline-grid; place-items:center; min-width:36px; height:36px; padding:0 10px; border-radius:12px; border:1px solid #26324e; background:#121a2e; color:#eaf2ff; cursor:pointer}
+    .btn:hover{border-color:#2f4168}
+    .btn[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 3px rgba(94,234,212,.15)}
+
+    .time{font-variant-tabular-nums:tabular-nums; color:#c8d7ee; font-size:14px}
+
+    .bar{flex:1; display:flex; align-items:center; gap:10px; min-width:160px}
+    .progress{position:relative; height:8px; flex:1; background:#1a2540; border-radius:999px; cursor:pointer}
+    .progress > .fill{position:absolute; inset:0; width:0%; background:linear-gradient(90deg,#60a5fa,#34d399); border-radius:999px}
+
+    .range{width:100px}
+
+    .chip{height:36px; padding:0 10px; border-radius:10px; border:1px solid #26324e; background:#0f172a; color:#e5f0ff}
+
+    /* File upload section */
+    .file-upload {padding: 16px; background: rgba(255,255,255,0.05); border-radius: 12px; margin: 16px; text-align: center;}
+    .file-upload p {margin: 0 0 12px 0; color: var(--muted);}
+    .file-btn {background: var(--accent); color: var(--bg); border: none; padding: 12px 24px; border-radius: 12px; cursor: pointer; font-weight: 600;}
+
+    /* Error message */
+    .error-message {color: #ff6b6b; text-align: center; padding: 16px; background: rgba(255,107,107,0.1); border-radius: 12px; margin: 16px; display: none;}
+
+    /* Responsive tweaks */
+    @media (max-width:720px){
+      .overlay{left:12px; right:12px; bottom:12px}
+      .controls{gap:8px}
+      .row{gap:8px}
+      .bar{min-width:120px;}
+    }
+
+    @media (max-width:520px){
+      .controls{flex-direction: column; align-items: stretch;}
+      .bar{order: 1;}
+      .row:first-child{order: 2;}
+      .row:last-child{order: 3;}
+    }
+  </style>
+</head>
+<body> 
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Custom video player">
+      <div class="file-upload">
+        <p>Upload your own MP4 video file:</p>
+        <label class="file-btn">
+          📁 Choose Video File
+          <input type="file" id="fileInput" accept="video/*" style="display: none;">
+        </label>
+      </div>
+
+      <div class="error-message" id="errorMsg">
+        Video loading failed. Please make sure you're using a supported video format (MP4) and try again.
+      </div>
+
+      <div class="video-area">
+        <!-- Using a sample video that should work online -->
+        <video id="vid" preload="metadata" playsinline>
+          <source src="images/meri vedio.mp4" type="video/mp4">
+           <source src="images/1 st year...jpeg" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="center-play" id="centerPlay">
+          <button class="btn" id="bigPlay" aria-label="Play video"></button>
+        </div>
+
+        <div class="overlay">
+          <h1 id="title">Sample Video - Big Buck Bunny</h1>
+          <p id="subtitle">Drag & drop your own MP4 file or use the upload button above</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="playPause" aria-label="Play/Pause">▶/⏸</button>
+          <button class="btn" id="rew" aria-label="Rewind 5s">⏪ 5s</button>
+          <button class="btn" id="fwd" aria-label="Forward 5s">⏩ 5s</button>
+        </div>
+
+        <div class="bar">
+          <span class="time" id="cur">0:00</span>
+          <div class="progress" id="progress" aria-label="Seek bar" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="fill" id="fill"></div>
+          </div>
+          <span class="time" id="dur">0:00</span>
+        </div>
+
+        <div class="row">
+          <input class="range" id="vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+          <select class="chip" id="speed" aria-label="Playback speed">
+            <option value="0.5">0.5×</option>
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+          <button class="btn" id="mute" aria-label="Mute">🔇</button>
+          <button class="btn" id="loop" aria-label="Loop" aria-pressed="false">🔁</button>
+          <button class="btn" id="pip" aria-label="Picture-in-Picture">🗔</button>
+          <button class="btn" id="fs" aria-label="Fullscreen">⛶</button>
+          <button class="btn" id="snap" aria-label="Snapshot">📸</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="hiddenCanvas" style="display:none"></canvas>
+
+  <script>
+    const $ = (id)=>document.getElementById(id);
+    const vid = $("vid"), playPause = $("playPause"), rew=$("rew"), fwd=$("fwd"),
+          progress=$("progress"), fill=$("fill"), cur=$("cur"), dur=$("dur"),
+          vol=$("vol"), speed=$("speed"), mute=$("mute"), loopBtn=$("loop"),
+          pip=$("pip"), fs=$("fs"), snap=$("snap"), centerPlay=$("centerPlay"), 
+          bigPlay=$("bigPlay"), fileInput=$("fileInput"), errorMsg=$("errorMsg");
+
+    // --- Helpers
+    const fmt = s=>{
+      s = Math.floor(s||0); const m = Math.floor(s/60), ss = (s%60).toString().padStart(2,'0');
+      return `${m}:${ss}`;
+    };
+
+    // --- File upload handling
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('video/')) {
+        const fileURL = URL.createObjectURL(file);
+        vid.src = fileURL;
+        $("title").textContent = file.name;
+        $("subtitle").textContent = "Playing your uploaded video";
+        errorMsg.style.display = 'none';
+      }
+    });
+
+    // --- Drag and drop support
+    document.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    document.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('video/')) {
+        const fileURL = URL.createObjectURL(file);
+        vid.src = fileURL;
+        $("title").textContent = file.name;
+        $("subtitle").textContent = "Playing your uploaded video";
+        errorMsg.style.display = 'none';
+      }
+    });
+
+    // --- Init
+    vid.addEventListener('loadedmetadata', ()=>{ 
+      dur.textContent = fmt(vid.duration); 
+      errorMsg.style.display = 'none';
+    });
+
+    vid.addEventListener('error', () => {
+      errorMsg.style.display = 'block';
+      centerPlay.classList.remove('hide');
+    });
+
+    // --- Play/Pause
+    function togglePlay(){
+      if(vid.paused){ 
+        vid.play().catch(e => {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Cannot play video: ' + e.message;
+        });
+      } else { 
+        vid.pause(); 
+      }
+    }
+    playPause.onclick = togglePlay;
+    bigPlay.onclick = togglePlay;
+    vid.addEventListener('play', ()=>{ 
+      playPause.textContent='⏸'; 
+      centerPlay.classList.add('hide'); 
+      errorMsg.style.display = 'none';
+    });
+    vid.addEventListener('pause', ()=>{ 
+      playPause.textContent='▶'; 
+      centerPlay.classList.remove('hide'); 
+    });
+
+    // --- Rew/Fwd
+    rew.onclick = ()=>{ vid.currentTime = Math.max(0, vid.currentTime - 5); };
+    fwd.onclick = ()=>{ vid.currentTime = Math.min(vid.duration, vid.currentTime + 5); };
+
+    // --- Progress + seek
+    vid.addEventListener('timeupdate', ()=>{
+      if (vid.duration) {
+        const p = (vid.currentTime / vid.duration) * 100;
+        fill.style.width = `${p || 0}%`;
+        progress.setAttribute('aria-valuenow', Math.round(p));
+        cur.textContent = fmt(vid.currentTime);
+      }
+    });
+
+    const seek = (e)=>{
+      const rect = progress.getBoundingClientRect();
+      const x = (e.clientX ?? e.touches?.[0]?.clientX) - rect.left;
+      const ratio = Math.min(1, Math.max(0, x / rect.width));
+      vid.currentTime = ratio * vid.duration;
+    };
+    progress.addEventListener('click', seek);
+    progress.addEventListener('touchstart', (e)=>{ seek(e); e.preventDefault(); }, {passive:false});
+
+    // --- Volume / Mute
+    vol.oninput = ()=>{ 
+      vid.volume = parseFloat(vol.value); 
+      if(vid.volume>0) vid.muted=false; 
+    };
+    mute.onclick = ()=>{ 
+      vid.muted = !vid.muted; 
+      mute.textContent = vid.muted ? '🔊' : '🔇';
+    };
+
+    // --- Speed
+    speed.onchange = ()=>{ vid.playbackRate = parseFloat(speed.value); };
+
+    // --- Loop
+    loopBtn.onclick = ()=>{ 
+      vid.loop = !vid.loop; 
+      loopBtn.setAttribute('aria-pressed', String(vid.loop)); 
+    };
+
+    // --- PiP
+    pip.onclick = async ()=>{ 
+      try{ 
+        if(document.pictureInPictureElement){
+          await document.exitPictureInPicture();
+        } else { 
+          await vid.requestPictureInPicture(); 
+        } 
+      } catch(e){ 
+        alert('Picture-in-Picture is not supported in this browser'); 
+      } 
+    };
+
+    // --- Fullscreen
+    fs.onclick = async ()=>{
+      try {
+        if(document.fullscreenElement){ 
+          await document.exitFullscreen(); 
+        } else { 
+          await document.documentElement.requestFullscreen(); 
+        }
+      } catch(e) {
+        alert('Fullscreen mode is not supported');
+      }
+    };
+
+    // --- Snapshot to PNG
+    snap.onclick = ()=>{
+      try {
+        const c = $("hiddenCanvas");
+        c.width = vid.videoWidth; 
+        c.height = vid.videoHeight;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(vid, 0, 0, c.width, c.height);
+        const url = c.toDataURL('image/png');
+        const a = document.createElement('a'); 
+        a.href = url; 
+        a.download = 'video-snapshot.png'; 
+        a.click();
+      } catch(e) {
+        alert('Cannot create snapshot: ' + e.message);
+      }
+    };
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e)=>{
+      if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
+      if(e.code==='Space'){ e.preventDefault(); togglePlay(); }
+      if(e.key==='ArrowLeft') rew.click();
+      if(e.key==='ArrowRight') fwd.click();
+      if(e.key==='m' || e.key==='M') mute.click();
+      if(e.key==='f' || e.key==='F') fs.click();
+    });
+  </script>
+</body>
+</html>
+
+```
+

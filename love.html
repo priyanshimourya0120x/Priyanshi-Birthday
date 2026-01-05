@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      overflow-x: hidden;
+      text-align: center;
+      color: #444;
+    }
+
+    header {
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #d6336c;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    /* Countdown box */
+    .countdown {
+      margin: 20px auto;
+      padding: 15px 20px;
+      background: rgba(255, 240, 245, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
+      font-size: 1.3rem;
+      color: #c9184a;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      margin: 15px;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      background: #ff6b81;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .btn:hover {
+      background: #ff4757;
+      transform: scale(1.05);
+    }
+
+    /* Hidden messages */
+    .message {
+      display: none;
+      margin: 25px auto;
+      font-size: 1.3rem;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 15px;
+      background: rgba(255, 230, 234, 0.8);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating symbols */
+    .symbol {
+      position: fixed;
+      font-size: 24px;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+      z-index: -1;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    footer {
+      margin: 40px 0;
+      font-size: 1.1rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <header>
+    <h1>🌸 For My Love, Even Miles Apart 🌸</h1>
+    <p>Click each button to read my hidden messages 💌</p>
+  </header>
+
+  <!-- Countdown Section -->
+  <div class="countdown">
+    <p>⏳ Days until we meet again: <span id="countdown"></span></p>
+  </div>
+
+  <!-- Buttons -->
+  <button class="btn" onclick="showMessage(1)">Click Me ❤️</button>
+  <button class="btn" onclick="showMessage(2)">Another Surprise 🌹</button>
+  <button class="btn" onclick="showMessage(3)">One More ✨</button>
+  <button class="btn" onclick="showMessage(4)">Final Gift 💋</button>
+
+  <!-- Hidden Messages -->
+  <div id="msg1" class="message">No matter the distance, my heart is always with you ❤️</div>
+  <div id="msg2" class="message">Every night I look at the stars, wishing you were by my side 🌙</div>
+  <div id="msg3" class="message">One day, all this distance will be worth it… we’ll be together forever 💍</div>
+  <div id="msg4" class="message">Happy Birthday My Love 💌 You are my today, my tomorrow, my forever ❤️</div>
+
+  <footer>
+    Made with ❤️ thinking of you every second.
+  </footer>
+
+  <script>
+    // Floating symbols (❤️ 🌹 💋 ✨)
+    const symbols = ["❤️","🌹","✨","💋"];
+    function createSymbol() {
+      const symbol = document.createElement("div");
+      symbol.classList.add("symbol");
+      symbol.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      symbol.style.left = Math.random() * window.innerWidth + "px";
+      symbol.style.fontSize = (20 + Math.random()*30) + "px";
+      symbol.style.animationDuration = (5 + Math.random() * 6) + "s";
+      document.body.appendChild(symbol);
+      setTimeout(() => symbol.remove(), 8000);
+    }
+    setInterval(createSymbol, 600);
+
+    // Show hidden messages
+    function showMessage(num) {
+      document.getElementById("msg"+num).style.display = "block";
+    }
+
+    // Countdown Timer
+    const targetDate = new Date("2025-12-25"); // 🎯 set your meeting date here
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("countdown").innerText = days > 0 ? days + " days" : "We're finally together! 💞";
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+</body>
+</html>

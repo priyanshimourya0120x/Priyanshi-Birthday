@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      overflow-x: hidden;
+      text-align: center;
+      color: #444;
+    }
+    /* ========== NAVBAR ========== */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 50px;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  color:#fff;
+  font-size:24px;
+  font-weight:bold;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+.nav-links li{ position:relative; }
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+}
+.nav-links a:hover{ color:#ff9800; }
+
+/* Dropdown */
+.dropdown-menu{
+  position:absolute;
+  top:120%;
+  left:0;
+  background:#111;
+  min-width:220px;
+  border-radius:10px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(15px);
+  transition:0.3s;
+}
+.dropdown:hover .dropdown-menu{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 18px;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.dropdown-menu a:hover{
+  background:linear-gradient(90deg,#ff9800,#ff5722);
+  color:#000;
+}
+
+    header {
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #d6336c;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      margin: 15px;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      background: #ff6b81;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .btn:hover {
+      background: #ff4757;
+      transform: scale(1.05);
+    }
+
+    /* Hidden messages */
+    .message {
+      display: none;
+      margin: 25px auto;
+      font-size: 1.3rem;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 15px;
+      background: rgba(255, 230, 234, 0.8);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating symbols */
+    .symbol {
+      position: fixed;
+      font-size: 24px;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+      z-index: -1;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    footer {
+      margin: 40px 0;
+      font-size: 1.1rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">My Web World</div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li class="dropdown">
+      <a href="#">Dance ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="dance couple.html">Couple Dance</a></li>
+        <li><a href="emojis dance.html">Emojis Dance</a></li>
+         <li><a href="slideshow.html">SlideShow</a></li>
+
+      </ul>
+    </li>
+
+       <li class="dropdown">
+      <a href="#">Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="saiyaar.html">Memories 🥹</a></li>
+        <li><a href="rotate.html">3D Rotate Video</a></li>
+        <li><a href="saiyaar.html">Memories</a></li>
+        <li><a href="rotation 2 big.html">Big Roatation</a></li>
+        <li><A href="imp.html">Important open it</A></li>
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Sorry ; Vedios ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="sorry 2nd.html">Sorry</a></li>
+        <li><a href="birthday celebration.html">Birthday Celebration</a></li>
+        <li><a href="vedio2nd.html">Vedios </a></li>
+        <li><a href="vedio11111.html">Best Vedio</a></li>
+        <li><a href="vedio3.html" target="_blank">Song Gorgeous Mood</a></li>
+    
+      </ul>
+    </li>
+
+     <li class="dropdown">
+      <a href="#">Girlfreind ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="bestie.html">Besties love you</a></li>
+        <li ><a href="love calculator.html">Love calculator</a></li>
+        <li><a href="love story.html">Love Story </a></li>
+        <li><a href="gf.html">Gf Texts</a></li>
+        <li><a href="cheat.html">Cheater Person</a></li>
+       
+      </ul>
+    </li>
+
+    <li><a href="invitation.html">Invitation</a></li>
+  </ul>
+</nav>
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="images/" type="audio/mp3">
+  </audio>
+
+  <header>
+    <h1>🌸 For My Love, Even Miles Apart 🌸</h1>
+    <p>Click each button to read my hidden messages 💌</p>
+  </header>
+
+  <!-- Buttons -->
+  <button class="btn" onclick="showMessage(1)">Click Me ❤️</button>
+  <button class="btn" onclick="showMessage(2)">Another Surprise 🌹</button>
+  <button class="btn" onclick="showMessage(3)">One More ✨</button>
+  <button class="btn" onclick="showMessage(4)">Final Gift 💋</button>
+
+  <!-- Hidden Messages -->
+  <div id="msg1" class="message">No matter the distance, my heart is always with you ❤️</div>
+  <div id="msg2" class="message">Every night I look at the stars, wishing you were by my side 🌙</div>
+  <div id="msg3" class="message">One day, all this distance will be worth it… we’ll be together forever 💍</div>
+  <div id="msg4" class="message">Happy Anniversary My Love 💌 You are my today, my tomorrow, my forever ❤️</div>
+
+  <footer>
+    Made with ❤️ thinking of you every second.
+  </footer>
+
+  <script>
+    // Floating symbols (❤️ 🌹 💋 ✨)
+    const symbols = ["❤️","🌹","✨","💋"];
+    function createSymbol() {
+      const symbol = document.createElement("div");
+      symbol.classList.add("symbol");
+      symbol.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      symbol.style.left = Math.random() * window.innerWidth + "px";
+      symbol.style.fontSize = (20 + Math.random()*30) + "px";
+      symbol.style.animationDuration = (5 + Math.random() * 6) + "s";
+      document.body.appendChild(symbol);
+      setTimeout(() => symbol.remove(), 8000);
+    }
+    setInterval(createSymbol, 600);
+
+    // Show hidden messages
+    function showMessage(num) {
+      document.getElementById("msg"+num).style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
